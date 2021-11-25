@@ -169,5 +169,5 @@ SET android_KEYALIAS_PASSWORD=**************
 
 SET buildNumber=timestamp
 
-%UnityEditor% -projectPath .\.. -logFile log_admin.log -executeMethod BuildProject.BuildiOSCustomPackage -quit -batchmode -nographics output=Builds\Android\iOS_Custom_Package
+%UnityEditor% -projectPath .\.. -logFile build.log -executeMethod BuildProject.BuildiOSCustomPackage -quit -batchmode -nographics output=Builds\Android\iOS_Custom_Package
 ```
