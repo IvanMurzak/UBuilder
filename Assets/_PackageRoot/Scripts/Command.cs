@@ -71,6 +71,19 @@ namespace UBuilder
             return null;
         }
 
+        [MenuItem("File/UBuilder/Build Current Platform")]
+        public static void Build()
+        {
+            Console.WriteLine($"{EditorUserBuildSettings.activeBuildTarget} build started");
+
+            if (Command.GetVariableBool(Command.Variables.Development) != null) EditorUserBuildSettings.development = Command.GetVariableBool(Command.Variables.Development).Value;
+            if (Command.BuildNumberInt() >= 0)                                  PlayerSettings.Android.bundleVersionCode = Command.BuildNumberInt();
+
+            var destination = Command.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/{EditorUserBuildSettings.activeBuildTarget}/buildDefault";
+            Console.WriteLine($"Build destination: {destination}");
+            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, EditorUserBuildSettings.activeBuildTarget, BuildOptions.None);
+        }
+
         public static class Variables
         {
             public const string OutputDestination   = "output";
