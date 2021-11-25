@@ -8,7 +8,7 @@ namespace UBuilder
         static class VariablesAndroid
         {
             public const string BuildAppBundle      = "android_BUILD_APP_BUNDLE";
-            public const string KeystoreName        = "android_KEYSTORE_NAME";
+            public const string KeystorePath        = "android_KEYSTORE_PATH";
             public const string KeystorePassword    = "android_KEYSTORE_PASSWORD";
             public const string KeyAliasName        = "android_KEYALIAS_NAME";
             public const string KeyAliasPassword    = "android_KEYALIAS_PASSWORD";
@@ -20,7 +20,7 @@ namespace UBuilder
             Console.WriteLine($"Android build started");
             var variables = new string[]
             {
-                VariablesAndroid.KeystoreName,
+                VariablesAndroid.KeystorePath,
                 VariablesAndroid.KeystorePassword,
                 VariablesAndroid.KeyAliasName,
                 VariablesAndroid.KeyAliasPassword
@@ -43,7 +43,7 @@ namespace UBuilder
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             EditorUserBuildSettings.buildAppBundle = Command.GetVariableBool(VariablesAndroid.BuildAppBundle) ?? false;
 
-            PlayerSettings.Android.keystoreName = Command.GetVariable(VariablesAndroid.KeystoreName);
+            PlayerSettings.Android.keystoreName = Command.GetVariable(VariablesAndroid.KeystorePath);
             PlayerSettings.Android.keystorePass = Command.GetVariable(VariablesAndroid.KeystorePassword);
             PlayerSettings.Android.keyaliasName = Command.GetVariable(VariablesAndroid.KeyAliasName);
             PlayerSettings.Android.keyaliasPass = Command.GetVariable(VariablesAndroid.KeyAliasPassword);
