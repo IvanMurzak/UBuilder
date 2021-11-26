@@ -21,7 +21,7 @@ Supported platforms:
 ```json
 {
   "dependencies": {
-    "extensions.unity.ubuilder": "1.0.1",
+    "extensions.unity.ubuilder": "1.0.3",
   },
   "scopedRegistries": [
     {
