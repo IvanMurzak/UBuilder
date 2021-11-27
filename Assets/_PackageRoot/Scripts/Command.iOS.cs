@@ -21,12 +21,13 @@ namespace UBuilder
                 return; // note, we can not use Environment.Exit(-1) - the buildprocess will just hang afterwards
             }
 
-            if (Command.GetVariableBool(Command.Variables.Development) != null)         EditorUserBuildSettings.development = Command.GetVariableBool(Command.Variables.Development).Value;
-            if (Command.GetVariable(VariablesiOS.SigningTeamID) != null)                PlayerSettings.iOS.appleDeveloperTeamID = Command.GetVariable(VariablesiOS.SigningTeamID);
-            if (Command.BuildNumber() != null)                                          PlayerSettings.iOS.buildNumber = Command.BuildNumber();
-            if (Command.GetVariableBool(VariablesiOS.EnableAutomaticSigning) != null)   PlayerSettings.iOS.appleEnableAutomaticSigning = Command.GetVariableBool(VariablesiOS.EnableAutomaticSigning).Value;
+            if (Utils.GetVariableBool(Command.Variables.Development) != null)       EditorUserBuildSettings.development = Utils.GetVariableBool(Command.Variables.Development).Value;
+            if (Utils.GetVariable(Command.Variables.BuildVersion) != null)          PlayerSettings.bundleVersion = Utils.GetVariable(Command.Variables.BuildVersion);
+            if (Utils.GetVariable(VariablesiOS.SigningTeamID) != null)              PlayerSettings.iOS.appleDeveloperTeamID = Utils.GetVariable(VariablesiOS.SigningTeamID);
+            if (Utils.BuildNumber() != null)                                        PlayerSettings.iOS.buildNumber = Utils.BuildNumber();
+            if (Utils.GetVariableBool(VariablesiOS.EnableAutomaticSigning) != null) PlayerSettings.iOS.appleEnableAutomaticSigning = Utils.GetVariableBool(VariablesiOS.EnableAutomaticSigning).Value;
 
-            var destination = Command.GetVariable(Command.Variables.OutputDestination) ?? "Builds/iOS/buildDefault";
+            var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? "Builds/iOS/buildDefault";
             Console.WriteLine($"Build destination: {destination}");
             BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.iOS, BuildOptions.None);
         }

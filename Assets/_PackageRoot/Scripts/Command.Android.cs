@@ -26,7 +26,7 @@ namespace UBuilder
                 VariablesAndroid.KeyAliasPassword
             };
             Console.WriteLine($"Validating variables");
-            if (Command.EnvironmentVariablesMissing(variables))
+            if (Utils.EnvironmentVariablesMissing(variables))
             {
                 Console.WriteLine("Build canceled, missed variable");
                 Environment.ExitCode = -1;
@@ -37,16 +37,17 @@ namespace UBuilder
             if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android))
                 Console.WriteLine("Target build target hadn't been switched");
 
-            if (Command.GetVariableBool(Command.Variables.Development) != null) EditorUserBuildSettings.development = Command.GetVariableBool(Command.Variables.Development).Value;
-            if (Command.BuildNumberInt() >= 0)                                  PlayerSettings.Android.bundleVersionCode = Command.BuildNumberInt();
+            if (Utils.GetVariableBool(Command.Variables.Development) != null)   EditorUserBuildSettings.development = Utils.GetVariableBool(Command.Variables.Development).Value;
+            if (Utils.GetVariable(Command.Variables.BuildVersion) != null)      PlayerSettings.bundleVersion = Utils.GetVariable(Command.Variables.BuildVersion);
+            if (Utils.BuildNumberInt() >= 0)                                    PlayerSettings.Android.bundleVersionCode = Utils.BuildNumberInt();
 
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-            EditorUserBuildSettings.buildAppBundle = Command.GetVariableBool(VariablesAndroid.BuildAppBundle) ?? false;
+            EditorUserBuildSettings.buildAppBundle = Utils.GetVariableBool(VariablesAndroid.BuildAppBundle) ?? false;
 
-            PlayerSettings.Android.keystoreName = Command.GetVariable(VariablesAndroid.KeystorePath);
-            PlayerSettings.Android.keystorePass = Command.GetVariable(VariablesAndroid.KeystorePassword);
-            PlayerSettings.Android.keyaliasName = Command.GetVariable(VariablesAndroid.KeyAliasName);
-            PlayerSettings.Android.keyaliasPass = Command.GetVariable(VariablesAndroid.KeyAliasPassword);
+            PlayerSettings.Android.keystoreName = Utils.GetVariable(VariablesAndroid.KeystorePath);
+            PlayerSettings.Android.keystorePass = Utils.GetVariable(VariablesAndroid.KeystorePassword);
+            PlayerSettings.Android.keyaliasName = Utils.GetVariable(VariablesAndroid.KeyAliasName);
+            PlayerSettings.Android.keyaliasPass = Utils.GetVariable(VariablesAndroid.KeyAliasPassword);
 
             Console.WriteLine($"development: {EditorUserBuildSettings.development}");
             Console.WriteLine($"buildAppBundle: {EditorUserBuildSettings.buildAppBundle}");
@@ -56,7 +57,7 @@ namespace UBuilder
             Console.WriteLine($"keyaliasName: {PlayerSettings.Android.keyaliasName}");
             Console.WriteLine($"keyaliasPass: {PlayerSettings.Android.keyaliasPass}");
 
-            var destination = Command.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/buildDefault";
+            var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/buildDefault";
             var validDest = destination.ToLower().EndsWith(".apk") || destination.ToLower().EndsWith(".aar");
             if (!validDest) destination = $"{destination}.{(EditorUserBuildSettings.buildAppBundle ? "aab" : "apk")}";
 
@@ -71,7 +72,7 @@ namespace UBuilder
 
             EditorUserBuildSettings.exportAsGoogleAndroidProject = true;
 
-            var destination = Command.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/projectDefault";
+            var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/projectDefault";
             if (destination.ToLower().EndsWith(".apk") || destination.ToLower().EndsWith(".aab"))
                 destination = destination.Substring(0, destination.Length - 4);
 
