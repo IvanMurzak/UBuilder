@@ -65,27 +65,6 @@ In command line you can do this by this command
 
 
 
-# How to use in command line (Windows)
-### Android
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-SET android_BUILD_APP_BUNDLE=false
-SET android_KEYSTORE_NAME=***************
-SET android_KEYSTORE_PASSWORD=***************
-SET android_KEYALIAS_NAME=***************
-SET android_KEYALIAS_PASSWORD=***************
-
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandAndroid.Build -quit -batchmode -nographics
-```
-### Other
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
-```
-Or create .bat file and put the text inside. Double click the bat file. Ease way to start build process by single script
-
-
-
 # How to use in command line (MacOS & Linux)
 ### iOS
 ```sh
@@ -117,6 +96,27 @@ Or create .sh file and put the text inside. Ease way to start build process by s
 <code>UBuilder.CommandAndroid.Export()</code> - create Android Studio project
 
 <code>UBuilder.Command.Build()</code> - build current (from ProjectSettings) platform build
+
+
+
+# How to use in command line (Windows)
+### Android
+```shell
+SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
+SET android_BUILD_APP_BUNDLE=false
+SET android_KEYSTORE_NAME=***************
+SET android_KEYSTORE_PASSWORD=***************
+SET android_KEYALIAS_NAME=***************
+SET android_KEYALIAS_PASSWORD=***************
+
+%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandAndroid.Build -quit -batchmode -nographics
+```
+### Other
+```shell
+SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
+%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
+```
+Or create .bat file and put the text inside. Double click the bat file. Ease way to start build process by single script
 
 
 
