@@ -87,15 +87,6 @@ UnityEditor=/Applications/"Unity Editor"/2019.2.1f1/Unity.app/Contents/MacOS/Uni
 "$UnityEditor" -projectPath ./ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
 ```
 Or create .sh file and put the text inside. Ease way to start build process by single script.
-# Hot to use in code (any OS)
-
-<code>UBuilder.CommandiOS.Build()</code> - create XCode project (MacOS required)
-
-<code>UBuilder.CommandAndroid.Build()</code> - create APK (<code>android_BUILD_APP_BUNDLE=false</code>) or AAB (<code>android_BUILD_APP_BUNDLE=true</code>) file
-
-<code>UBuilder.CommandAndroid.Export()</code> - create Android Studio project
-
-<code>UBuilder.Command.Build()</code> - build current (from ProjectSettings) platform build
 
 
 
@@ -117,6 +108,18 @@ SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
 %UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
 ```
 Or create .bat file and put the text inside. Double click the bat file. Ease way to start build process by single script
+
+
+
+# Hot to use in code (any OS)
+
+<code>UBuilder.CommandiOS.Build()</code> - create XCode project (MacOS required)
+
+<code>UBuilder.CommandAndroid.Build()</code> - create APK (<code>android_BUILD_APP_BUNDLE=false</code>) or AAB (<code>android_BUILD_APP_BUNDLE=true</code>) file
+
+<code>UBuilder.CommandAndroid.Export()</code> - create Android Studio project
+
+<code>UBuilder.Command.Build()</code> - build current (from ProjectSettings) platform build
 
 
 
