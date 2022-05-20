@@ -66,11 +66,6 @@ In command line you can do this by this command
 
 
 # How to use in command line (Windows)
-### iOS
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandiOS.Build -quit -batchmode -nographics
-```
 ### Android
 ```shell
 SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
