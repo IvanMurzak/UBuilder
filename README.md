@@ -1,5 +1,5 @@
 # UBuilder - Unity command line builder
-![npm](https://img.shields.io/npm/v/extensions.unity.ubuilder) ![License](https://img.shields.io/github/license/IvanMurzak/UBuilder) [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+![npm](https://img.shields.io/npm/v/extensions.unity.ubuilder) [![openupm](https://img.shields.io/npm/v/extensions.unity.ubuilder?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/extensions.unity.iap.store/) ![License](https://img.shields.io/github/license/IvanMurzak/UBuilder) [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 Unity command line builder. Flexible setup through Environment variables in combination with command line variables.
 
@@ -19,14 +19,14 @@ Supported platforms:
 # How to install - Option 1 (RECOMMENDED)
 - [Install OpenUPM-CLI](https://github.com/openupm/openupm-cli#installation)
 - Open command line in Unity project folder
-- `openupm --registry https://registry.npmjs.org add extensions.unity.ubuilder`
+- `openupm --registry add extensions.unity.ubuilder`
 
 # How to install - Option 2
 - Add this code to <code>/Packages/manifest.json</code>
 ```json
 {
   "dependencies": {
-    "extensions.unity.ubuilder": "1.1.1",
+    "extensions.unity.ubuilder": "1.1.2",
   },
   "scopedRegistries": [
     {
