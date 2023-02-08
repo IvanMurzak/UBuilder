@@ -5,7 +5,7 @@ namespace UBuilder
 {
     public static partial class CommandAndroid
     {
-        static class VariablesAndroid
+        public static class VariablesAndroid
         {
             public const string BuildAppBundle      = "android_BUILD_APP_BUNDLE";
             public const string KeystorePath        = "android_KEYSTORE_PATH";
@@ -18,6 +18,13 @@ namespace UBuilder
         public static void Build()
         {
             Console.WriteLine($"Android build started");
+            var destination = Setup();
+            if (destination == null) return;
+            Console.WriteLine($"Build destination: {destination}");
+            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+        }
+        public static string Setup()
+        {
             var variables = new string[]
             {
                 VariablesAndroid.KeystorePath,
@@ -28,14 +35,18 @@ namespace UBuilder
             Console.WriteLine($"Validating variables");
             if (Utils.EnvironmentVariablesMissing(variables))
             {
+                UnityEngine.Debug.LogError("Build canceled, missed variable");
                 Console.WriteLine("Build canceled, missed variable");
                 Environment.ExitCode = -1;
-                return; // note, we can not use Environment.Exit(-1) - the buildprocess will just hang afterwards
+                return null; // note, we can not use Environment.Exit(-1) - the buildprocess will just hang afterwards
             }
             Console.WriteLine($"Variables are valid");
 
             if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android))
+            {
+                UnityEngine.Debug.LogError("Target build target hadn't been switched");
                 Console.WriteLine("Target build target hadn't been switched");
+            }
 
             if (Utils.GetVariableBool(Command.Variables.Development) != null)   EditorUserBuildSettings.development = Utils.GetVariableBool(Command.Variables.Development).Value;
             if (Utils.GetVariable(Command.Variables.BuildVersion) != null)      PlayerSettings.bundleVersion = Utils.GetVariable(Command.Variables.BuildVersion);
@@ -60,9 +71,7 @@ namespace UBuilder
             var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/buildDefault";
             var validDest = destination.ToLower().EndsWith(".apk") || destination.ToLower().EndsWith(".aar");
             if (!validDest) destination = $"{destination}.{(EditorUserBuildSettings.buildAppBundle ? "aab" : "apk")}";
-
-            Console.WriteLine($"Build destination: {destination}");
-            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+            return destination;
         }
 
         [MenuItem("File/UBuilder/Build Android (Export)")]

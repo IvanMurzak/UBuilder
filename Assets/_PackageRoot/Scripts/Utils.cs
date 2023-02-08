@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using UnityEditor;
 
@@ -48,8 +49,9 @@ namespace UBuilder
                 var value = GetVariable(requiredVariable);
                 if (value == null)
                 {
-                    Console.Write("BUILD ERROR: Required Environment Variable is not set: ");
-                    Console.WriteLine(requiredVariable);
+                    UnityEngine.Debug.LogError("BUILD ERROR: Required Environment Variable is not set: " + requiredVariable);
+                    Console.Error.Write("BUILD ERROR: Required Environment Variable is not set: ");
+                    Console.Error.WriteLine(requiredVariable);
                     missing = true;
                 }
             }
