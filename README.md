@@ -19,7 +19,7 @@ Supported platforms:
 # How to install - Option 1 (RECOMMENDED)
 - [Install OpenUPM-CLI](https://github.com/openupm/openupm-cli#installation)
 - Open command line in Unity project folder
-- `openupm --registry add extensions.unity.ubuilder`
+- `openupm add extensions.unity.ubuilder`
 
 # How to install - Option 2
 - Add this code to <code>/Packages/manifest.json</code>
