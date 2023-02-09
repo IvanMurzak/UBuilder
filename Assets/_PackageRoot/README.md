@@ -1,5 +1,5 @@
 # UBuilder - Unity command line builder
-![npm](https://img.shields.io/npm/v/extensions.unity.ubuilder) ![License](https://img.shields.io/github/license/IvanMurzak/UBuilder)
+![npm](https://img.shields.io/npm/v/extensions.unity.ubuilder) [![openupm](https://img.shields.io/npm/v/extensions.unity.ubuilder?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/extensions.unity.iap.store/) ![License](https://img.shields.io/github/license/IvanMurzak/UBuilder) [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 Unity command line builder. Flexible setup through Environment variables in combination with command line variables.
 
@@ -16,12 +16,17 @@ Supported platforms:
 
 
 
-# How to install
+# How to install - Option 1 (RECOMMENDED)
+- [Install OpenUPM-CLI](https://github.com/openupm/openupm-cli#installation)
+- Open command line in Unity project folder
+- `openupm --registry add extensions.unity.ubuilder`
+
+# How to install - Option 2
 - Add this code to <code>/Packages/manifest.json</code>
 ```json
 {
   "dependencies": {
-    "extensions.unity.ubuilder": "1.1.0",
+    "extensions.unity.ubuilder": "1.1.3",
   },
   "scopedRegistries": [
     {
@@ -65,32 +70,6 @@ In command line you can do this by this command
 
 
 
-# How to use in command line (Windows)
-### iOS
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandiOS.Build -quit -batchmode -nographics
-```
-### Android
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-SET android_BUILD_APP_BUNDLE=false
-SET android_KEYSTORE_NAME=***************
-SET android_KEYSTORE_PASSWORD=***************
-SET android_KEYALIAS_NAME=***************
-SET android_KEYALIAS_PASSWORD=***************
-
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandAndroid.Build -quit -batchmode -nographics
-```
-### Other
-```shell
-SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
-%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
-```
-Or create .bat file and put the text inside. Double click the bat file. Ease way to start build process by single script
-
-
-
 # How to use in command line (MacOS & Linux)
 ### iOS
 ```sh
@@ -113,6 +92,30 @@ UnityEditor=/Applications/"Unity Editor"/2019.2.1f1/Unity.app/Contents/MacOS/Uni
 "$UnityEditor" -projectPath ./ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
 ```
 Or create .sh file and put the text inside. Ease way to start build process by single script.
+
+
+
+# How to use in command line (Windows)
+### Android
+```shell
+SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
+SET android_BUILD_APP_BUNDLE=false
+SET android_KEYSTORE_NAME=***************
+SET android_KEYSTORE_PASSWORD=***************
+SET android_KEYALIAS_NAME=***************
+SET android_KEYALIAS_PASSWORD=***************
+
+%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.CommandAndroid.Build -quit -batchmode -nographics
+```
+### Other
+```shell
+SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
+%UnityEditor% -projectPath .\ -logFile build.log -executeMethod UBuilder.Command.Build -quit -batchmode -nographics
+```
+Or create .bat file and put the text inside. Double click the bat file. Ease way to start build process by single script
+
+
+
 # Hot to use in code (any OS)
 
 <code>UBuilder.CommandiOS.Build()</code> - create XCode project (MacOS required)
