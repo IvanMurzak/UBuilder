@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using UnityEditor;
 
 namespace UBuilder
 {
-    public static class Utils
+    internal static class Utils
     {
         public static void SaveAsset<T>(T asset) where T : UnityEngine.Object
         {

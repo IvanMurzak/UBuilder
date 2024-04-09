@@ -5,32 +5,30 @@ namespace UBuilder
 {
     public static partial class CommandAndroid
     {
-        public static class VariablesAndroid
-        {
-            public const string BuildAppBundle      = "android_BUILD_APP_BUNDLE";
-            public const string KeystorePath        = "android_KEYSTORE_PATH";
-            public const string KeystorePassword    = "android_KEYSTORE_PASSWORD";
-            public const string KeyAliasName        = "android_KEYALIAS_NAME";
-            public const string KeyAliasPassword    = "android_KEYALIAS_PASSWORD";
-        }
-
         [MenuItem("File/UBuilder/Build Android")]
         public static void Build()
         {
             Console.WriteLine($"Android build started");
             var destination = Setup();
-            if (destination == null) return;
+            if (destination == null)
+            {
+                Environment.ExitCode = -1;
+                Console.Error.WriteLine("Build canceled");
+                Console.Error.WriteLine("output destination is null");
+                return;
+            }
             Console.WriteLine($"Build destination: {destination}");
-            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+            var buildReport = BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+            BuildProcessor.ProcessBuildReport(buildReport);
         }
         public static string Setup()
         {
             var variables = new string[]
             {
-                VariablesAndroid.KeystorePath,
-                VariablesAndroid.KeystorePassword,
-                VariablesAndroid.KeyAliasName,
-                VariablesAndroid.KeyAliasPassword
+                Variables.KeystorePath,
+                Variables.KeystorePassword,
+                Variables.KeyAliasName,
+                Variables.KeyAliasPassword
             };
             Console.WriteLine($"Validating variables");
             if (Utils.EnvironmentVariablesMissing(variables))
@@ -38,7 +36,7 @@ namespace UBuilder
                 UnityEngine.Debug.LogError("Build canceled, missed variable");
                 Console.WriteLine("Build canceled, missed variable");
                 Environment.ExitCode = -1;
-                return null; // note, we can not use Environment.Exit(-1) - the buildprocess will just hang afterwards
+                return null; // note, we can not use Environment.Exit(-1) - the build process will just hang afterwards
             }
             Console.WriteLine($"Variables are valid");
 
@@ -53,12 +51,12 @@ namespace UBuilder
             if (Utils.BuildNumberInt() >= 0)                                    PlayerSettings.Android.bundleVersionCode = Utils.BuildNumberInt();
 
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-            EditorUserBuildSettings.buildAppBundle = Utils.GetVariableBool(VariablesAndroid.BuildAppBundle) ?? false;
+            EditorUserBuildSettings.buildAppBundle = Utils.GetVariableBool(Variables.BuildAppBundle) ?? false;
 
-            PlayerSettings.Android.keystoreName = Utils.GetVariable(VariablesAndroid.KeystorePath);
-            PlayerSettings.Android.keystorePass = Utils.GetVariable(VariablesAndroid.KeystorePassword);
-            PlayerSettings.Android.keyaliasName = Utils.GetVariable(VariablesAndroid.KeyAliasName);
-            PlayerSettings.Android.keyaliasPass = Utils.GetVariable(VariablesAndroid.KeyAliasPassword);
+            PlayerSettings.Android.keystoreName = Utils.GetVariable(Variables.KeystorePath);
+            PlayerSettings.Android.keystorePass = Utils.GetVariable(Variables.KeystorePassword);
+            PlayerSettings.Android.keyaliasName = Utils.GetVariable(Variables.KeyAliasName);
+            PlayerSettings.Android.keyaliasPass = Utils.GetVariable(Variables.KeyAliasPassword);
 
             Console.WriteLine($"development: {EditorUserBuildSettings.development}");
             Console.WriteLine($"buildAppBundle: {EditorUserBuildSettings.buildAppBundle}");
@@ -82,11 +80,28 @@ namespace UBuilder
             EditorUserBuildSettings.exportAsGoogleAndroidProject = true;
 
             var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/Android/projectDefault";
+            if (destination == null)
+            {
+                Environment.ExitCode = -1;
+                Console.Error.WriteLine("Build canceled");
+                Console.Error.WriteLine("output destination is null");
+                return;
+            }
             if (destination.ToLower().EndsWith(".apk") || destination.ToLower().EndsWith(".aab"))
                 destination = destination.Substring(0, destination.Length - 4);
 
             Console.WriteLine($"Build destination: {destination}");
-            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+
+            var buildReport = BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, BuildTarget.Android, BuildOptions.None);
+            BuildProcessor.ProcessBuildReport(buildReport);
+        }
+        public static class Variables
+        {
+            public const string BuildAppBundle      = "android_BUILD_APP_BUNDLE";
+            public const string KeystorePath        = "android_KEYSTORE_PATH";
+            public const string KeystorePassword    = "android_KEYSTORE_PASSWORD";
+            public const string KeyAliasName        = "android_KEYALIAS_NAME";
+            public const string KeyAliasPassword    = "android_KEYALIAS_PASSWORD";
         }
     }
 }
