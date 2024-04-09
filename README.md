@@ -62,7 +62,7 @@ In command line you can do this by this command
 
 ## Android related variables
 - <code>android_BUILD_APP_BUNDLE</code> - true/false, true - compile .aab file for Google Play, false - compile .apk
-- <code>android_KEYSTORE_NAME</code> - [required] path to keystore
+- <code>android_KEYSTORE_PATH</code> - [required] path to keystore
 - <code>android_KEYSTORE_PASSWORD</code> - [required] keystore password
 - <code>android_KEYALIAS_NAME</code> - [required] key alias
 - <code>android_KEYALIAS_PASSWORD</code> - [required] key alias password
@@ -79,7 +79,7 @@ UnityEditor=/Applications/"Unity Editor"/2019.2.1f1/Unity.app/Contents/MacOS/Uni
 ### Android
 ```sh
 UnityEditor=/Applications/"Unity Editor"/2019.2.1f1/Unity.app/Contents/MacOS/Unity
-android_KEYSTORE_NAME=***************
+android_KEYSTORE_PATH=***************
 android_KEYSTORE_PASSWORD=***************
 android_KEYALIAS_NAME=***************
 android_KEYALIAS_PASSWORD=***************
@@ -100,7 +100,7 @@ Or create .sh file and put the text inside. Ease way to start build process by s
 ```shell
 SET UnityEditor=C:\UnityEditor\Unity\2019.2.1f1\Editor\Unity.exe
 SET android_BUILD_APP_BUNDLE=false
-SET android_KEYSTORE_NAME=***************
+SET android_KEYSTORE_PATH=***************
 SET android_KEYSTORE_PASSWORD=***************
 SET android_KEYALIAS_NAME=***************
 SET android_KEYALIAS_PASSWORD=***************
