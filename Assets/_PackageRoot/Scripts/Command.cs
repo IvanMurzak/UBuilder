@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using System;
@@ -20,8 +18,17 @@ namespace UBuilder
             if (Utils.GetVariable(Variables.BuildVersion) != null)            PlayerSettings.bundleVersion = Utils.GetVariable(Variables.BuildVersion);
 
             var destination = Utils.GetVariable(Command.Variables.OutputDestination) ?? $"Builds/{EditorUserBuildSettings.activeBuildTarget}/buildDefault";
+            if (destination == null)
+            {
+                Environment.ExitCode = -1;
+                Console.Error.WriteLine("Build canceled");
+                Console.Error.WriteLine("output destination is null");
+                return;
+            }
             Console.WriteLine($"Build destination: {destination}");
-            BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, EditorUserBuildSettings.activeBuildTarget, BuildOptions.None);
+
+            var buildReport = BuildPipeline.BuildPlayer(Command.GetScenePaths(), destination, EditorUserBuildSettings.activeBuildTarget, BuildOptions.None);
+            BuildProcessor.ProcessBuildReport(buildReport);
         }
 
         public static class Variables
