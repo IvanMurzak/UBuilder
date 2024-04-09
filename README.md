@@ -9,7 +9,7 @@ All operation systems are supported for running the build process:
 - :white_check_mark: Linux
 
 Supported platforms:
-- :white_check_mark: Standalone (Desktop)
+- :white_check_mark: Standalone (Windows / Mac / Linux)
 - :white_check_mark: iOS
 - :white_check_mark: Android
 - :yellow_circle: other (supported but not tested)
