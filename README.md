@@ -3,7 +3,7 @@
 
 Unity command line builder. Flexible setup through Environment variables in combination with command line variables.
 
-All operation systems are supported for running build process:
+All operation systems are supported for running the build process:
 - :white_check_mark: Windows
 - :white_check_mark: MacOS
 - :white_check_mark: Linux
@@ -26,7 +26,7 @@ Supported platforms:
 ```json
 {
   "dependencies": {
-    "extensions.unity.ubuilder": "1.1.3",
+    "extensions.unity.ubuilder": "1.2.0",
   },
   "scopedRegistries": [
     {
